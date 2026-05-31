@@ -333,8 +333,8 @@ nav {
   border-color: var(--pink);
 }
 
-.special-prev { left: 48px; }
-.special-next { right: 48px; }
+.special-prev { left: 60px; }
+.special-next { right: 60px; }
 
 /* Sections */
 .section {
@@ -734,6 +734,12 @@ nav {
 /* How to buy */
 .how-section {
   background: #0a0a0a;
+  text-align: center;
+}
+
+.how-section .section-header {
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .how-grid {
@@ -782,8 +788,9 @@ nav {
 }
 
 .how-payment {
-  max-width: 640px; margin: 0 auto;
+  max-width: 900px; margin: 0 auto;
   display: flex; gap: 20px;
+  justify-content: center;
 }
 
 .payment-box {
