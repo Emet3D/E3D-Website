@@ -661,37 +661,50 @@ nav {
 .how-arrow {
   color: var(--pink);
   flex-shrink: 0;
-  opacity: 0.5;
+  font-size: 28px;
+  opacity: 0.4;
 }
 
 .how-payment {
-  max-width: 600px; margin: 0 auto;
-  text-align: center;
+  max-width: 640px; margin: 0 auto;
+  display: flex; gap: 20px;
 }
 
-.how-payment h3 {
-  font-size: 14px; font-weight: 600; margin-bottom: 20px;
-  text-transform: uppercase; letter-spacing: 1px;
-  color: var(--text-dim);
+.payment-box {
+  flex: 1;
+  background: var(--graphite);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.payment-box:hover {
+  border-color: rgba(245,201,198,0.12);
+}
+
+.payment-box h3 {
+  font-size: 13px; font-weight: 600; margin-bottom: 16px;
+  text-transform: uppercase; letter-spacing: 1.5px;
+  color: var(--pink);
+}
+
+.payment-box p {
+  font-size: 13px; color: var(--text-dim); line-height: 1.6;
 }
 
 .payment-methods {
-  display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
-  margin-bottom: 20px;
+  display: flex; justify-content: center; gap: 8px; flex-wrap: wrap;
 }
 
 .payment-method {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 20px;
-  background: var(--graphite);
+  display: inline-block;
+  padding: 8px 16px;
+  background: rgba(245,201,198,0.08);
   border-radius: 50px;
-  border: 1px solid var(--border);
-  font-size: 13px; font-weight: 500;
+  font-size: 12px; font-weight: 500;
   color: var(--text);
-}
-
-.how-ship {
-  font-size: 12px; color: var(--text-dim);
 }
 
 /* CTA */
@@ -1001,6 +1014,7 @@ footer {
   .how-grid { flex-direction: column; gap: 12px; }
   .how-arrow { transform: rotate(90deg); }
   .how-step { width: 100%; }
+  .how-payment { flex-direction: column; }
 }
 
 /* Small phones */
