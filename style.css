@@ -615,6 +615,85 @@ nav {
 .carousel-btn.prev { left: 0; }
 .carousel-btn.next { right: 0; }
 
+/* How to buy */
+.how-section {
+  background: #0a0a0a;
+}
+
+.how-grid {
+  display: flex; align-items: center; gap: 24px;
+  max-width: 900px; margin: 0 auto 64px;
+}
+
+.how-step {
+  flex: 1;
+  background: var(--graphite);
+  border-radius: var(--radius);
+  padding: 36px 28px;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: var(--transition);
+}
+
+.how-step:hover {
+  border-color: rgba(245,201,198,0.12);
+  transform: translateY(-4px);
+}
+
+.how-num {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: var(--pink);
+  color: var(--black);
+  font-size: 20px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.how-step h3 {
+  font-size: 16px; font-weight: 600; margin-bottom: 12px;
+}
+
+.how-step p {
+  font-size: 13px; color: var(--text-dim); line-height: 1.7;
+}
+
+.how-arrow {
+  color: var(--pink);
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+.how-payment {
+  max-width: 600px; margin: 0 auto;
+  text-align: center;
+}
+
+.how-payment h3 {
+  font-size: 14px; font-weight: 600; margin-bottom: 20px;
+  text-transform: uppercase; letter-spacing: 1px;
+  color: var(--text-dim);
+}
+
+.payment-methods {
+  display: flex; justify-content: center; gap: 12px; flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.payment-method {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px;
+  background: var(--graphite);
+  border-radius: 50px;
+  border: 1px solid var(--border);
+  font-size: 13px; font-weight: 500;
+  color: var(--text);
+}
+
+.how-ship {
+  font-size: 12px; color: var(--text-dim);
+}
+
 /* CTA */
 .cta-section {
   padding: 120px 48px;
@@ -919,6 +998,9 @@ footer {
   .footer-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
   .btn-primary, .btn-secondary, .btn-instagram { padding: 12px 28px; font-size: 13px; }
   .btn-add-cart { width: 100%; justify-content: center; }
+  .how-grid { flex-direction: column; gap: 12px; }
+  .how-arrow { transform: rotate(90deg); }
+  .how-step { width: 100%; }
 }
 
 /* Small phones */
