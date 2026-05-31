@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>E3D — Diseño e Impresión 3D Premium</title>
+<meta name="description" content="E3D — Transformamos ideas en objetos 3D. Cajas, llaveros, soportes y más. Impresión 3D premium en Rosario, Argentina. Pedidos por Instagram.">
+<meta property="og:title" content="E3D — Diseño e Impresión 3D Premium">
+<meta property="og:description" content="Cajas, llaveros, soportes y más. Impresión 3D premium. Pedinos por Instagram.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://e3d.com.ar">
+<meta property="og:image" content="images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="E3D — Diseño e Impresión 3D Premium">
+<meta name="twitter:description" content="Cajas, llaveros, soportes y más. Impresión 3D premium. Pedinos por Instagram.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://code.jquery.com 'unsafe-inline'; style-src 'self' https://fonts.googleapis.com 'unsafe-inline'; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; form-action 'none'; base-uri 'self'; upgrade-insecure-requests">
+<link rel="canonical" href="https://e3d.com.ar">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Store",
+  "name": "E3D",
+  "description": "Diseño e impresión 3D premium. Cajas, llaveros, soportes y más.",
+  "url": "https://e3d.com.ar",
+  "telephone": "",
+  "email": "",
+  "address": { "@type": "PostalAddress", "addressLocality": "Rosario", "addressCountry": "AR" },
+  "sameAs": ["https://www.instagram.com/emet3d/"],
+  "makesOffer": [
+    { "@type": "Offer", "name": "Caja de Figuritas 40und", "price": "6000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Caja de Figuritas 60und", "price": "8000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Caja de Figuritas 80und", "price": "10000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Cierre Bolsa Blanco x4", "price": "2000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Cierre Bolsa Celeste x4", "price": "2000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Cierre Bolsa Negro x4", "price": "2000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Soporte de Llaves", "price": "8000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Soporte para Celular", "price": "2500", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Exhibidor de Llaveros", "price": "4000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Llavero Copa 2D", "price": "2000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Llavero Copa 3D", "price": "2000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Llavero Arg Messi", "price": "2000", "priceCurrency": "ARS" },
+    { "@type": "Offer", "name": "Llavero Motor", "price": "2000", "priceCurrency": "ARS" }
+  ]
+}
+</script>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">E<span>3</span>D</a>
+  <button class="hamburger" aria-label="Menú">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-links">
+    <a href="#catalogo">Catálogo</a>
+    <a href="#variantes">Variantes</a>
+    <a href="#caracteristicas">Características</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div class="nav-right">
+    <button class="cart-btn" id="cartToggle" aria-label="Carrito">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <a href="https://www.instagram.com/emet3d/" target="_blank" rel="noopener noreferrer" class="nav-cta">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+      @emet3d
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Impresión 3D Premium</div>
+    <h1>Diseño digital.<br>Objeto real.<span class="highlight"> Sin límites.</span></h1>
+    <p>Transformamos ideas en objetos tridimensionales con precisión milimétrica. Cada pieza es única, impresa en materiales de primera calidad.</p>
+    <div class="hero-actions">
+      <a href="#catalogo" class="btn-primary">
+        Ver catálogo
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="https://www.instagram.com/emet3d/" target="_blank" rel="noopener noreferrer" class="btn-secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+        Instagram
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <h3><span>+</span>50</h3>
+        <p>Diseños</p>
+      </div>
+      <div class="hero-stat">
+        <h3><span>+</span>200</h3>
+        <p>Piezas entregadas</p>
+      </div>
+      <div class="hero-stat">
+        <h3><span>0</span>%</h3>
+        <p>Proceso digital</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="catalogo">
+  <div class="section-header">
+    <div class="section-tag">Catálogo</div>
+    <h2 class="section-title">Diseños esenciales</h2>
+    <p class="section-desc">Seleccioná un producto, elegí color o tamaño y agregalo al carrito.</p>
+  </div>
+  <div class="catalog-layout">
+    <div class="catalog-featured fade-up">
+      <div class="product-image">
+        <div class="glow"></div>
+        <div class="placeholder-icon" style="font-size:64px; opacity:0.15;">&#128230;</div>
+        <img src="" alt="Producto destacado" class="hidden" loading="lazy">
+      </div>
+      <div class="product-info">
+        <div class="category">Cajas</div>
+        <h3>Caja de Figuritas 40und</h3>
+        <p class="desc">Caja con tapa deslizante para 40 figuritas. Ideal para coleccionistas y regalos empresariales.</p>
+        <div class="variant-selector" style="display:none;">
+          <div class="variant-options"></div>
+        </div>
+        <div class="price">$6.000</div>
+        <div class="qty-selector" style="display:none;">
+          <button class="qty-btn qty-minus">−</button>
+          <span class="qty-value">1</span>
+          <button class="qty-btn qty-plus">+</button>
+          <span class="qty-total"></span>
+        </div>
+        <button class="btn-add-cart" data-id="caja-40" data-name="Caja de Figuritas 40und" data-price="6000">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+          Agregar
+        </button>
+      </div>
+    </div>
+    <div class="catalog-list fade-up">
+      <div class="catalog-item active" data-name="Caja de Figuritas" data-category="Cajas" data-desc="Caja con tapa deslizante para figuritas. Ideal para coleccionistas." data-price="$6.000" data-price-num="6000" data-id="caja-40" data-img="images/fotos sin nada/caja de figuritas 40und tapa deslizante.png" data-variants='[{"id":"caja-40","name":"Caja de Figuritas 40und","label":"40und","img":"images/fotos sin nada/caja de figuritas 40und tapa deslizante.png","price":"6000","priceLabel":"$6.000"},{"id":"caja-60","name":"Caja de Figuritas 60und","label":"60und","img":"images/fotos sin nada/caja de figuritas 40und tapa deslizante.png","price":"8000","priceLabel":"$8.000"},{"id":"caja-80","name":"Caja de Figuritas 80und","label":"80und","img":"images/fotos sin nada/caja de figuritas 40und tapa deslizante.png","price":"10000","priceLabel":"$10.000"}]'>
+        <div class="item-info">
+          <h4>Caja de Figuritas</h4>
+          <p>40 · 60 · 80 unidades</p>
+          <div class="item-price">$6.000</div>
+        </div>
+        <button class="btn-sm-cart" title="Agregar">+</button>
+      </div>
+      <div class="catalog-item" data-name="Cierre para Bolsa x4" data-category="Cierres" data-desc="Pack de 4 cierres plásticos para bolsas. Disponible en 3 colores." data-price="$2.000" data-price-num="2000" data-id="cierre-blanco" data-img="images/fotos sin nada/cierre bolsa blanco.png" data-variants='[{"id":"cierre-blanco","name":"Cierre Bolsa Blanco x4","label":"Blanco","img":"images/fotos sin nada/cierre bolsa blanco.png","price":"2000","priceLabel":"$2.000"},{"id":"cierre-celeste","name":"Cierre Bolsa Celeste x4","label":"Celeste","img":"images/fotos sin nada/cierre bolsa celeste.png","price":"2000","priceLabel":"$2.000"},{"id":"cierre-negro","name":"Cierre Bolsa Negro x4","label":"Negro","img":"images/fotos sin nada/cierre bolsa negro.png","price":"2000","priceLabel":"$2.000"}]'>
+        <div class="item-info">
+          <h4>Cierre para Bolsa x4</h4>
+          <p>Blanco · Celeste · Negro</p>
+          <div class="item-price">$2.000</div>
+        </div>
+        <button class="btn-sm-cart" title="Agregar">+</button>
+      </div>
+      <div class="catalog-item" data-name="Soporte de Llaves" data-category="Soportes" data-desc="Soporte resistente para llaves. Diseño funcional y duradero." data-price="$8.000" data-price-num="8000" data-id="soporte-llaves" data-img="images/fotos sin nada/soporte llaves.png" data-variants="">
+        <div class="item-info">
+          <h4>Soporte de Llaves</h4>
+          <p>Resistente · Funcional</p>
+          <div class="item-price">$8.000</div>
+        </div>
+        <button class="btn-sm-cart" title="Agregar">+</button>
+      </div>
+      <div class="catalog-item" data-name="Soporte para Celular" data-category="Soportes" data-desc="Soporte minimalista para celular. Compatible con cualquier teléfono." data-price="$2.500" data-price-num="2500" data-id="soporte-celular" data-img="images/fotos sin nada/soporte para telefono negro.png" data-variants="">
+        <div class="item-info">
+          <h4>Soporte para Celular</h4>
+          <p>Negro · Universal</p>
+          <div class="item-price">$2.500</div>
+        </div>
+        <button class="btn-sm-cart" title="Agregar">+</button>
+      </div>
+      <div class="catalog-item" data-name="Exhibidor de Llaveros" data-category="Exhibidores" data-desc="Exhibidor de acrílico para llaveros. Ideal para puntos de venta." data-price="$4.000" data-price-num="4000" data-id="exhibidor-llavero" data-img="images/fotos sin nada/exhibidor de llavero negro.png" data-variants="">
+        <div class="item-info">
+          <h4>Exhibidor de Llaveros</h4>
+          <p>Acrílico · Negro</p>
+          <div class="item-price">$4.000</div>
+        </div>
+        <button class="btn-sm-cart" title="Agregar">+</button>
+      </div>
+      <div class="catalog-item" data-name="Llaveros" data-category="Llaveros" data-desc="Llaveros personalizados. 1u $2.000 · 5u c/u $1.500 · 10u c/u $1.200. Elegí tu diseño." data-price="$2.000" data-price-num="2000" data-id="llavero-copa-2d" data-img="images/fotos sin nada/llavero copa 2d.png" data-tiered="true" data-variants='[{"id":"llavero-copa-2d","name":"Llavero Copa 2D","label":"Copa 2D","img":"images/fotos sin nada/llavero copa 2d.png","price":"2000","priceLabel":"$2.000"},{"id":"llavero-copa-3d","name":"Llavero Copa 3D","label":"Copa 3D","img":"images/fotos sin nada/llavero copa 3d.png","price":"2000","priceLabel":"$2.000"},{"id":"llavero-messi","name":"Llavero Arg Messi","label":"Arg Messi","img":"images/fotos sin nada/llavero arg messi.png","price":"2000","priceLabel":"$2.000"},{"id":"llavero-motor","name":"Llavero Motor","label":"Motor","img":"images/fotos sin nada/llavero motor.png","price":"2000","priceLabel":"$2.000"}]'>
+        <div class="item-info">
+          <h4>Llaveros</h4>
+          <p>Copa 2D · Copa 3D · Arg Messi · Motor</p>
+          <div class="item-price">$2.000</div>
+        </div>
+        <button class="btn-sm-cart" title="Agregar">+</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="variants-section" id="variantes">
+  <div class="section-header">
+    <div class="section-tag">Variantes</div>
+    <h2 class="section-title">Todos los diseños</h2>
+    <p class="section-desc">Explorá las variantes de cada producto: colores, tamaños y modelos.</p>
+  </div>
+  <div class="carousel-wrapper fade-up">
+    <button class="carousel-btn prev">&#8592;</button>
+    <button class="carousel-btn next">&#8594;</button>
+    <div class="carousel-track">
+      <div class="carousel-card" data-id="caja-40" data-name="Caja de Figuritas 40und" data-price="6000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/caja de figuritas 40und tapa deslizante.png" alt="Caja de Figuritas 40und" loading="lazy">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Caja Figuritas</div>
+          <h4>40 unidades</h4>
+          <div class="variant-price">$6.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="soporte-llaves" data-name="Soporte de Llaves" data-price="8000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/soporte llaves.png" alt="Soporte de Llaves" loading="lazy">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Soporte Llaves</div>
+          <h4>Resistente</h4>
+          <div class="variant-price">$8.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="soporte-celular" data-name="Soporte para Celular" data-price="2500">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/soporte para telefono negro.png" loading="lazy" alt="Soporte para Celular">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Soporte Celular</div>
+          <h4>Universal</h4>
+          <div class="variant-price">$2.500</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="exhibidor-llavero" data-name="Exhibidor de Llaveros" data-price="4000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/exhibidor de llavero negro.png" loading="lazy" alt="Exhibidor de Llaveros">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Exhibidor</div>
+          <h4>Acrílico negro</h4>
+          <div class="variant-price">$4.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="cierre-blanco" data-name="Cierre Bolsa Blanco x4" data-price="2000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/cierre bolsa blanco.png" loading="lazy" alt="Cierre Bolsa Blanco x4">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Cierre Blanco</div>
+          <h4>Pack x4</h4>
+          <div class="variant-price">$2.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="cierre-celeste" data-name="Cierre Bolsa Celeste x4" data-price="2000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/cierre bolsa celeste.png" loading="lazy" alt="Cierre Bolsa Celeste x4">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Cierre Celeste</div>
+          <h4>Pack x4</h4>
+          <div class="variant-price">$2.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="cierre-negro" data-name="Cierre Bolsa Negro x4" data-price="2000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/cierre bolsa negro.png" loading="lazy" alt="Cierre Bolsa Negro x4">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Cierre Negro</div>
+          <h4>Pack x4</h4>
+          <div class="variant-price">$2.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="llavero-copa-2d" data-name="Llavero Copa 2D" data-price="2000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/llavero copa 2d.png" loading="lazy" alt="Llavero Copa 2D">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Llavero</div>
+          <h4>Copa 2D</h4>
+          <div class="variant-price">$2.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="llavero-copa-3d" data-name="Llavero Copa 3D" data-price="2000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/llavero copa 3d.png" loading="lazy" alt="Llavero Copa 3D">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Llavero</div>
+          <h4>Copa 3D</h4>
+          <div class="variant-price">$2.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="llavero-messi" data-name="Llavero Arg Messi" data-price="2000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/llavero arg messi.png" loading="lazy" alt="Llavero Arg Messi">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Llavero</div>
+          <h4>Arg Messi</h4>
+          <div class="variant-price">$2.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+      <div class="carousel-card" data-id="llavero-motor" data-name="Llavero Motor" data-price="2000">
+        <div class="carousel-image">
+          <div class="carousel-glow"></div>
+          <img src="images/fotos sin nada/llavero motor.png" loading="lazy" alt="Llavero Motor">
+        </div>
+        <div class="carousel-info">
+          <div class="variant-label">Llavero</div>
+          <h4>Motor</h4>
+          <div class="variant-price">$2.000</div>
+          <button class="btn-sm-cart variant-add" title="Agregar">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="caracteristicas" style="background: #0a0a0a;">
+  <div class="section-header">
+    <div class="section-tag">Características</div>
+    <h2 class="section-title">Cómo trabajamos</h2>
+    <p class="section-desc">Cada pieza se imprime con atención al detalle y cuidado artesanal.</p>
+  </div>
+  <div class="features-grid features-2">
+    <div class="feature-card fade-up">
+      <div class="feature-icon">&#9881;&#65039;</div>
+      <h3>Precisión mecánica</h3>
+      <p>Impresión con tolerancias de ±0.1mm. Todo funciona sin post-procesado.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">&#127775;</div>
+      <h3>Acabado artesanal</h3>
+      <p>Lijado, pintado y sellado manual. Cada pieza recibe un tratamiento superficial único.</p>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section" id="contacto">
+  <h2 class="fade-up">¿Tenés una idea?</h2>
+  <p class="fade-up">Escribinos por Instagram y te respondemos con el diseño, el presupuesto y el tiempo de entrega.</p>
+  <div class="cta-actions fade-up">
+    <a href="https://www.instagram.com/emet3d/" target="_blank" rel="noopener noreferrer" class="btn-instagram">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5" fill="#0d0d0d"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
+      @emet3d
+    </a>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <a href="#" class="nav-logo footer-logo">E<span>3</span>D</a>
+  </div>
+  <div class="footer-links">
+    <a href="#catalogo">Catálogo</a>
+    <a href="#variantes">Variantes</a>
+    <a href="#caracteristicas">Características</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+  <div class="footer-copy">&copy; 2026 E3D — Diseño e impresión 3D</div>
+</footer>
+
+<!-- Cart sidebar -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h3>Carrito</h3>
+    <button class="cart-close" id="cartClose">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">Tu carrito está vacío</div>
+  </div>
+  <div class="cart-footer" id="cartFooter" style="display:none;">
+    <div class="cart-total">
+      <span>Total</span>
+      <span id="cartTotal">$0</span>
+    </div>
+    <div class="cart-footer-actions">
+      <button class="btn-checkout" id="checkoutBtn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+        Enviar pedido
+      </button>
+      <button class="btn-clear-cart" id="clearCartBtn" title="Vaciar carrito">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+      </button>
+    </div>
+    <p class="checkout-note">Se copia el pedido y abrimos Instagram</p>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs" crossorigin="anonymous"></script>
+<script src="script.js"></script>
+</body>
+</html>

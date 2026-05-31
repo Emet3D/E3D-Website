@@ -1,0 +1,6 @@
+server.py
+.certs/
+ig_template/
+__pycache__/
+*.pyc
+iniciar_servidor.bat
