@@ -333,8 +333,8 @@ nav {
   border-color: var(--pink);
 }
 
-.special-prev { left: 0; }
-.special-next { right: 0; }
+.special-prev { left: 48px; }
+.special-next { right: 48px; }
 
 /* Sections */
 .section {
