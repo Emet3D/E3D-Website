@@ -236,19 +236,59 @@ $(function() {
     addToCart($card.data('id'), $card.data('name'), $card.data('price'));
   });
 
+  /* ========== CATALOG TABS ========== */
+  $('.catalog-tabs').on('click', '.catalog-tab', function() {
+    var $tab = $(this).addClass('active');
+    $tab.siblings().removeClass('active');
+    var cat = $tab.data('cat');
+
+    $('.catalog-list .catalog-item').each(function() {
+      var $item = $(this);
+      if (cat === 'todo' || $item.data('category') === cat) {
+        $item.removeClass('hidden-by-tab');
+      } else {
+        $item.addClass('hidden-by-tab');
+      }
+    });
+
+    /* Click first visible item */
+    var $first = $('.catalog-list .catalog-item:not(.hidden-by-tab)').first();
+    if ($first.length) {
+      $first.trigger('click');
+    }
+  });
+
   /* ========== CATALOG ITEM SELECTION ========== */
-  $('.catalog-list').on('click', '.catalog-item', function() {
+  $('.catalog-list').on('click', '.catalog-item:not(.hidden-by-tab)', function() {
     var $this = $(this);
     $('.catalog-item').removeClass('active');
     $this.addClass('active');
 
     var $feat = $('.catalog-featured');
     var $img = $feat.find('.product-image img');
+    var $placeholder = $feat.find('.placeholder-icon');
     var url = $this.data('img');
 
+    /* Coming soon */
+    if ($this.data('coming-soon')) {
+      $img.addClass('hidden').attr('src', '');
+      $placeholder.show();
+      $feat.find('.category').text($this.data('category'));
+      $feat.find('h3').text($this.data('name'));
+      $feat.find('.desc').text($this.data('desc'));
+      $feat.find('.price').text('PRÓXIMAMENTE').css('color', 'var(--text-dim)');
+      $feat.find('.qty-selector').hide();
+      $feat.find('.variant-selector').hide();
+      $feat.find('.btn-add-cart').hide();
+      return;
+    }
+
+    $feat.find('.btn-add-cart').show();
+    $feat.find('.price').css('color', '');
+
     if (url && url.length) {
-      $img.attr('src', url).attr('alt', $this.data('name')).show();
-      $feat.find('.placeholder-icon').hide();
+      $img.attr('src', url).attr('alt', $this.data('name')).removeClass('hidden');
+      $placeholder.hide();
     }
 
     $feat.find('.category').text($this.data('category'));
