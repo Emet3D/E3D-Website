@@ -446,37 +446,7 @@ $(function() {
     $(document).on('touchend mouseup', function() { dragging = false; });
   });
 
-  /* ========== SPECIAL CAROUSEL ========== */
-  $('.special-carousel-wrapper').each(function() {
-    var $track = $(this).find('.special-track');
-    var $prev = $(this).find('.special-prev');
-    var $next = $(this).find('.special-next');
-
-    function cardW() {
-      var $c = $track.find('.special-card').first();
-      return $c.length ? $c.outerWidth(true) : 240;
-    }
-
-    $prev.on('click', function() { $track.animate({ scrollLeft: '-=' + cardW() }, 300); });
-    $next.on('click', function() { $track.animate({ scrollLeft: '+=' + cardW() }, 300); });
-
-    var startX, scrollStart, dragging = false;
-    $track.on('touchstart mousedown', function(e) {
-      dragging = true;
-      startX = e.type === 'touchstart' ? e.originalEvent.touches[0].pageX : e.pageX;
-      scrollStart = $track.scrollLeft();
-    });
-
-    $(document).on('touchmove mousemove', function(e) {
-      if (!dragging) return;
-      var x = e.type === 'touchmove' ? e.originalEvent.touches[0].pageX : e.pageX;
-      $track.scrollLeft(scrollStart + (startX - x));
-    });
-
-    $(document).on('touchend mouseup', function() { dragging = false; });
-  });
-
-  /* Click special card -> scroll to catalog */
+  /* Click special card -> catalog */
   $('.special-card').on('click', function() {
     $('html, body').animate({ scrollTop: $('#catalogo').offset().top - 80 }, 600);
   });

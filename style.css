@@ -260,8 +260,12 @@ nav {
 
 .special-carousel-wrapper {
   position: relative;
-  margin: 0 -48px;
-  padding: 0 48px;
+}
+
+.special-track {
+  display: flex; gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 .special-track {
@@ -276,7 +280,7 @@ nav {
 .special-track::-webkit-scrollbar { display: none; }
 
 .special-card {
-  flex: 0 0 200px;
+  flex: 0 0 220px;
   scroll-snap-align: start;
   background: var(--graphite);
   border-radius: var(--radius-sm);
@@ -313,28 +317,7 @@ nav {
   font-size: 14px; font-weight: 700; color: var(--pink);
 }
 
-.special-btn {
-  position: absolute; top: 50%; transform: translateY(-50%);
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  background: var(--graphite);
-  border: 1px solid var(--border);
-  color: var(--text);
-  font-size: 14px;
-  cursor: pointer;
-  transition: var(--transition);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 10;
-}
 
-.special-btn:hover {
-  background: var(--pink);
-  color: var(--black);
-  border-color: var(--pink);
-}
-
-.special-prev { left: 60px; }
-.special-next { right: 60px; }
 
 /* Sections */
 .section {
@@ -1130,13 +1113,11 @@ footer {
   .variant-add { bottom: 16px; right: 16px; }
   .carousel-btn { display: none; }
   .special-section { padding: 48px 20px; }
-  .special-carousel-wrapper { margin: 0 -20px; padding: 0 20px; }
-  .special-card { flex: 0 0 150px; }
-  .special-card img { height: 130px; }
+  .special-card { flex: 0 0 160px; }
+  .special-card img { height: 140px; }
   .special-card-info { padding: 10px; }
   .special-card-info h4 { font-size: 12px; }
   .special-price { font-size: 12px; }
-  .special-btn { display: none; }
   .cta-section { padding: 64px 20px; }
   footer { flex-direction: column; text-align: center; gap: 16px; padding: 32px 20px; }
   .footer-links { gap: 20px; flex-wrap: wrap; justify-content: center; }
