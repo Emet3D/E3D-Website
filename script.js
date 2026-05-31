@@ -447,14 +447,14 @@ $(function() {
   });
 
   /* ========== SPECIAL CAROUSEL ========== */
-  $('.special-carousel').each(function() {
+  $('.special-carousel-wrapper').each(function() {
     var $track = $(this).find('.special-track');
     var $prev = $(this).find('.special-prev');
     var $next = $(this).find('.special-next');
 
     function cardW() {
       var $c = $track.find('.special-card').first();
-      return $c.length ? $c.outerWidth(true) : 260;
+      return $c.length ? $c.outerWidth(true) : 240;
     }
 
     $prev.on('click', function() { $track.animate({ scrollLeft: '-=' + cardW() }, 300); });
