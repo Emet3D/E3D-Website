@@ -953,6 +953,7 @@ nav {
 .cart-footer {
   padding: 24px;
   border-top: 1px solid var(--border);
+  flex-shrink: 0;
 }
 
 .cart-total {
@@ -1001,6 +1002,53 @@ nav {
 .checkout-note {
   font-size: 11px; color: var(--text-dim);
   text-align: center; margin-top: 8px;
+}
+
+/* Checkout modal */
+.checkout-modal-overlay {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.7);
+  z-index: 400;
+  align-items: center; justify-content: center;
+  padding: 20px;
+}
+
+.checkout-modal {
+  background: var(--graphite);
+  border-radius: var(--radius);
+  padding: 40px 32px;
+  max-width: 380px; width: 100%;
+  text-align: center;
+  border: 1px solid var(--border);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.checkout-modal-icon {
+  font-size: 40px; margin-bottom: 16px;
+}
+
+.checkout-modal h3 {
+  font-size: 20px; font-weight: 600; margin-bottom: 8px;
+}
+
+.checkout-modal p {
+  font-size: 14px; color: var(--text-dim); line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.checkout-modal-actions {
+  display: flex; flex-direction: column; gap: 10px;
+}
+
+.checkout-modal-actions .btn-primary,
+.checkout-modal-actions .btn-secondary {
+  width: 100%; justify-content: center;
+  text-align: center;
+}
+
+.checkout-modal-note {
+  font-size: 12px; color: var(--text-dim);
+  margin-top: 16px; margin-bottom: 0;
 }
 
 /* Toast */

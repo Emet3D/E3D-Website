@@ -139,7 +139,30 @@ $(function() {
 
   $('#clearCartBtn').on('click', clearCart);
 
-  /* Checkout: copy to clipboard (modern API) + open Instagram */
+  /* ========== CHECKOUT ========== */
+  function openInstagramApp() {
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    if (isMobile) {
+      /* Try deep link to open Instagram app */
+      var dl = 'instagram://direct/inbox';
+      var fallback = 'https://www.instagram.com/direct/inbox/';
+      var start = Date.now();
+      var iframe = document.createElement('iframe');
+      iframe.style.display = 'none';
+      iframe.src = dl;
+      document.body.appendChild(iframe);
+      setTimeout(function() {
+        document.body.removeChild(iframe);
+        if (Date.now() - start < 1500) {
+          /* Deep link didn't work, open web */
+          window.location.href = fallback;
+        }
+      }, 800);
+    } else {
+      window.open('https://www.instagram.com/direct/inbox/', '_blank');
+    }
+  }
+
   $('#checkoutBtn').on('click', function() {
     if (!cart.length) return;
     var lines = ['¡Hola E3D! Quiero hacer este pedido:\n'];
@@ -154,6 +177,7 @@ $(function() {
     lines.push('\n✅ Pedido generado desde e3d.com.ar');
     var msg = lines.join('\n');
 
+    /* Copy to clipboard */
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(msg).catch(function() { fallbackCopy(msg); });
     } else {
@@ -161,10 +185,31 @@ $(function() {
     }
 
     closeCart();
-    setTimeout(function() {
-      window.open('https://www.instagram.com/emet3d/', '_blank');
-    }, 300);
-    showToast('Pedido copiado ✓ Abriendo Instagram...');
+
+    /* Show confirmation dialog */
+    var $modal = $(
+      '<div class="checkout-modal-overlay">' +
+        '<div class="checkout-modal">' +
+          '<div class="checkout-modal-icon">&#9989;</div>' +
+          '<h3>Pedido listo</h3>' +
+          '<p>El mensaje con tu pedido ya está copiado al portapapeles.</p>' +
+          '<div class="checkout-modal-actions">' +
+            '<button class="btn-primary checkout-open-ig">Abrir Instagram</button>' +
+            '<button class="btn-secondary checkout-close-modal">Cancelar</button>' +
+          '</div>' +
+          '<p class="checkout-modal-note">Pegá el mensaje en el chat de @emet3d</p>' +
+        '</div>' +
+      '</div>'
+    ).appendTo('body').fadeIn(200);
+
+    $modal.find('.checkout-open-ig').on('click', function() {
+      openInstagramApp();
+      $modal.fadeOut(200, function() { $modal.remove(); });
+    });
+
+    $modal.find('.checkout-close-modal').on('click', function() {
+      $modal.fadeOut(200, function() { $modal.remove(); });
+    });
   });
 
   function fallbackCopy(text) {
