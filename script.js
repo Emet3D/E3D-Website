@@ -175,12 +175,6 @@ $(function() {
   }
 
   /* ========== CHECKOUT ========== */
-  function openInstagram() {
-    $('<a>').attr({ href: 'https://www.instagram.com/direct/inbox/', target: '_blank', rel: 'noopener' })
-      .css({ position: 'fixed', left: '-9999px' })
-      .appendTo('body')[0].click();
-  }
-
   $('#checkoutBtn').on('click', function() {
     if (!cart.length) return;
     var lines = ['¡Hola E3D! Quiero hacer este pedido:\n'];
@@ -214,10 +208,6 @@ $(function() {
             '<button class="btn-primary checkout-mp" style="background:#00BFFF;border-color:#00BFFF;color:#fff;" title="Pagar con Mercado Pago">' +
               ' Pagar con Mercado Pago' +
             '</button>' +
-            '<button class="btn-secondary checkout-open-ig">' +
-              '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5" fill="currentColor"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>' +
-              ' Pedir por Instagram' +
-            '</button>' +
             '<button class="btn-secondary checkout-close-modal">Cancelar</button>' +
           '</div>' +
           '<p class="checkout-modal-note">Pedido copiado al portapapeles</p>' +
@@ -228,11 +218,6 @@ $(function() {
     $modal.find('.checkout-mp').on('click', function() {
       removeModal();
       pagarMP();
-    });
-
-    $modal.find('.checkout-open-ig').on('click', function() {
-      removeModal();
-      openInstagram();
     });
 
     $modal.find('.checkout-close-modal').on('click', function() {
