@@ -142,8 +142,7 @@ $(function() {
   $('#clearCartBtn').on('click', clearCart);
 
   /* ========== MERCADO PAGO ========== */
-  var MP_BACKEND = (location.hostname === 'localhost' || location.hostname === '127.0.0.1')
-    ? 'http://localhost:8080' : 'https://e3d-pago.emet3d.workers.dev';
+  var MP_BACKEND = 'https://e3d-pago.emet3d.workers.dev';
 
   function setMPUrl(url) {
     MP_BACKEND = url;
