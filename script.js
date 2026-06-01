@@ -142,17 +142,10 @@ $(function() {
   $('#clearCartBtn').on('click', clearCart);
 
   /* ========== CHECKOUT ========== */
-  function openInstagramApp() {
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    if (isMobile) {
-      /* Try deep link first, fallback to web after 1s */
-      setTimeout(function() {
-        window.location.href = 'https://www.instagram.com/direct/inbox/';
-      }, 1000);
-      window.location.href = 'instagram://direct/inbox';
-    } else {
-      window.open('https://www.instagram.com/direct/inbox/', '_blank');
-    }
+  function openInstagram() {
+    $('<a>').attr({ href: 'https://www.instagram.com/direct/inbox/', target: '_blank', rel: 'noopener' })
+      .css({ position: 'fixed', left: '-9999px' })
+      .appendTo('body')[0].click();
   }
 
   $('#checkoutBtn').on('click', function() {
@@ -178,8 +171,6 @@ $(function() {
 
     closeCart();
 
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
     var $modal = $(
       '<div class="checkout-modal-overlay">' +
         '<div class="checkout-modal">' +
@@ -193,14 +184,14 @@ $(function() {
             '</button>' +
             '<button class="btn-secondary checkout-close-modal">Cerrar</button>' +
           '</div>' +
-          (isMobile ? '<p class="checkout-modal-note">Se abre la app, pega el mensaje y envialo</p>' : '<p class="checkout-modal-note">Pegá el mensaje en el chat de @emet3d</p>') +
+          '<p class="checkout-modal-note">Pegá el mensaje en el chat de @emet3d</p>' +
         '</div>' +
       '</div>'
     ).appendTo('body').css('display', 'flex').hide().fadeIn(200);
 
     $modal.find('.checkout-open-ig').on('click', function() {
       removeModal();
-      openInstagramApp();
+      openInstagram();
     });
 
     $modal.find('.checkout-close-modal').on('click', function() {
@@ -515,6 +506,13 @@ $(function() {
 
   /* Safety: force footer visible if cart has items */
   if (cart.length) $('#cartFooter').show();
+
+  /* Handle back/forward cache (pageshow fires even from bfcache) */
+  $(window).on('pageshow', function() {
+    cart = JSON.parse(localStorage.getItem('e3d_cart') || '[]');
+    updateCartUI();
+    if (cart.length) $('#cartFooter').show();
+  });
 
   /* Auto-select first catalog item to show its image */
   $('.catalog-item.active').trigger('click');
