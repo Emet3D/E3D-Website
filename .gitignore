@@ -4,3 +4,6 @@ ig_template/
 __pycache__/
 *.pyc
 iniciar_servidor.bat
+
+mp_server.py
+tunnel*.log
