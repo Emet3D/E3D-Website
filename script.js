@@ -141,6 +141,39 @@ $(function() {
 
   $('#clearCartBtn').on('click', clearCart);
 
+  /* ========== MERCADO PAGO ========== */
+  var MP_BACKEND = 'https://e3d-pago.emet3d.workers.dev';
+
+  function setMPUrl(url) {
+    MP_BACKEND = url;
+    localStorage.setItem('e3d_mp_url', url);
+  }
+
+  function pagarMP() {
+    if (!cart.length || !MP_BACKEND) return;
+    var items = [];
+    $.each(cart, function(i, item) {
+      items.push({ name: item.name, qty: item.qty, price: item.price });
+    });
+
+    $.ajax({
+      url: MP_BACKEND + '/crear-pago',
+      method: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify({ items: items }),
+      success: function(res) {
+        if (res.ok) {
+          window.location.href = res.url;
+        } else {
+          showToast('Error: ' + (res.error || 'No se pudo crear el pago'));
+        }
+      },
+      error: function() {
+        showToast('Error de conexion con el servidor de pago');
+      }
+    });
+  }
+
   /* ========== CHECKOUT ========== */
   function openInstagram() {
     $('<a>').attr({ href: 'https://www.instagram.com/direct/inbox/', target: '_blank', rel: 'noopener' })
@@ -178,16 +211,24 @@ $(function() {
           '<h3>Pedido listo</h3>' +
           '<p>El mensaje ya está copiado. Elegí cómo enviarlo:</p>' +
           '<div class="checkout-modal-actions">' +
-            '<button class="btn-primary checkout-open-ig">' +
-              '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5" fill="#0d0d0d"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>' +
-              ' Abrir Instagram' +
+            '<button class="btn-primary checkout-mp" style="background:#00BFFF;border-color:#00BFFF;color:#fff;" title="Pagar con Mercado Pago">' +
+              ' Pagar con Mercado Pago' +
             '</button>' +
-            '<button class="btn-secondary checkout-close-modal">Cerrar</button>' +
+            '<button class="btn-secondary checkout-open-ig">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5" fill="currentColor"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>' +
+              ' Pedir por Instagram' +
+            '</button>' +
+            '<button class="btn-secondary checkout-close-modal">Cancelar</button>' +
           '</div>' +
-          '<p class="checkout-modal-note">Pegá el mensaje en el chat de @emet3d</p>' +
+          '<p class="checkout-modal-note">Pedido copiado al portapapeles</p>' +
         '</div>' +
       '</div>'
     ).appendTo('body').css('display', 'flex').hide().fadeIn(200);
+
+    $modal.find('.checkout-mp').on('click', function() {
+      removeModal();
+      pagarMP();
+    });
 
     $modal.find('.checkout-open-ig').on('click', function() {
       removeModal();
