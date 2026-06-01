@@ -168,8 +168,13 @@ $(function() {
           showToast('Error: ' + (res.error || 'No se pudo crear el pago'));
         }
       },
-      error: function() {
-        showToast('Error de conexion con el servidor de pago');
+      error: function(jqXHR) {
+        var msg = 'Error de conexion con el servidor de pago';
+        try {
+          var r = JSON.parse(jqXHR.responseText);
+          if (r.error) msg = r.error;
+        } catch(e) {}
+        showToast(msg);
       }
     });
   }
