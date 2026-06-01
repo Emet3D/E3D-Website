@@ -6,4 +6,5 @@ __pycache__/
 iniciar_servidor.bat
 
 mp_server.py
+mp_local_server.py
 tunnel*.log
