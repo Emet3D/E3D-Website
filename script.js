@@ -532,6 +532,20 @@ $(function() {
     if (e.key === 'Escape') { closeCart(); closeMenu(); }
   });
 
+  /* ========== PAYMENT RETURN ========== */
+  var params = new URLSearchParams(location.search);
+  var payStatus = params.get('status');
+  var payOid = params.get('oid');
+  if (payStatus === 'success' && payOid) {
+    cart = [];
+    saveCart();
+    showToast('Pago aprobado! Pedido ' + payOid + ' — Te llega confirmacion por Telegram');
+  } else if (payStatus === 'failure') {
+    showToast('El pago no se completo. Volve a intentar.');
+  } else if (payStatus === 'pending') {
+    showToast('Pago pendiente. Te avisamos cuando se acredite.');
+  }
+
   /* Init */
   updateCartUI();
 
