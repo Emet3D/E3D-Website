@@ -190,6 +190,10 @@ $(function() {
         '<label class="ship-label"><input type="checkbox" id="shipSucursal"> Retirar en sucursal de Correo Argentino</label>' +
       '</div>' +
       '<div class="ship-cost" id="shipCost"></div>' +
+      '<div class="ship-ig-area" id="shipIgArea" style="display:none">' +
+        '<p style="font-size:13px;color:var(--text-dim);margin: 8px 0;">Contactanos por Instagram para coordinar el envio y el pago</p>' +
+        '<button class="btn-primary ship-ig-btn" style="background:#E1306C;border-color:#E1306C;color:#fff;width:100%;"> Enviar pedido por Instagram</button>' +
+      '</div>' +
       '<div class="checkout-modal-actions">' +
         '<button class="btn-primary checkout-mp" id="shipPayBtn" style="background:#00BFFF;border-color:#00BFFF;color:#fff;"> Pagar con Mercado Pago</button>' +
         '<button class="btn-secondary checkout-close-modal">Cancelar</button>' +
@@ -210,6 +214,42 @@ $(function() {
     function removeModal() { $modal.fadeOut(200, function() { $modal.remove(); }); }
 
     /* Calculate shipping and proceed */
+    /* Instagram button for outside free zone */
+    $modal.find('.ship-ig-btn').on('click', function() {
+      var name = $('#shipName').val().trim();
+      var phone = $('#shipPhone').val().trim();
+      var province = $('#shipProvince').val();
+      var city = $('#shipCity').val().trim();
+      var address = $('#shipAddress').val().trim();
+
+      if (!name || !phone || !city || !address) {
+        showToast('Completá todos los campos del formulario');
+        return;
+      }
+
+      var lines = ['¡Hola E3D! Quiero hacer este pedido:\n'];
+      var total = 0;
+      $.each(cart, function(i, item) {
+        var sub = item.price * item.qty;
+        total += sub;
+        lines.push('• ' + item.name + ' x' + item.qty + ' = ' + formatPrice(sub));
+      });
+      lines.push('\nTotal productos: ' + formatPrice(total));
+      lines.push('\n📍 Envío a ' + city + ', ' + province);
+      lines.push('   ' + address);
+      lines.push('   ' + name + ' - ' + phone);
+      lines.push('\n✅ Pedido desde e3d.com.ar (fuera de zona de cobertura)');
+
+      var msg = lines.join('\n');
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(msg).catch(function() {});
+      }
+      removeModal();
+      $('<a>').attr({ href: 'https://www.instagram.com/direct/inbox/', target: '_blank', rel: 'noopener' })
+        .css({ position: 'fixed', left: '-9999px' }).appendTo('body')[0].click();
+      showToast('Pedido copiado — pegalo en Instagram');
+    });
+
     $modal.find('#shipPayBtn').on('click', function() {
       var name = $('#shipName').val().trim();
       var phone = $('#shipPhone').val().trim();
@@ -262,37 +302,21 @@ $(function() {
     function previewShipping() {
       var province = $('#shipProvince').val();
       var city = $('#shipCity').val().trim();
-      var zip = $('#shipZip').val().trim();
 
-      if (!city || !zip) { $('#shipCost').hide(); return; }
+      if (!city) { $('#shipCost').hide(); $('#shipIgArea').hide(); $('#shipPayBtn').show(); return; }
 
       if (isFreeZone(province, city)) {
         $('#shipCost').html('<span class="ship-free">🚚 Envío gratis a ' + city + ' (zona de cobertura)</span>').show();
+        $('#shipIgArea').hide();
+        $('#shipPayBtn').show();
       } else {
-        $('#shipCost').html('<span class="ship-calculating">Calculando envío...</span>').show();
-        $.ajax({
-          url: MP_BACKEND + '/cotizar-envio',
-          method: 'POST',
-          contentType: 'application/json',
-          data: JSON.stringify({
-            province: province, city: city, zip: zip,
-            deliveryType: $('#shipSucursal').is(':checked') ? 'S' : 'D'
-          }),
-          success: function(res) {
-            if (res.ok && res.costo !== undefined) {
-              $('#shipCost').html('<span class="ship-price">🚚 Envío: $' + Number(res.costo).toLocaleString('es-AR') + '</span>').show();
-            } else if (res.error) {
-              $('#shipCost').html('<span class="ship-error">' + res.error + '</span>').show();
-            }
-          },
-          error: function() {
-            $('#shipCost').html('<span class="ship-error">Error al calcular envío</span>').show();
-          }
-        });
+        $('#shipCost').html('<span class="ship-outside">⚠️ Por ahora solo entregamos en Rosario y alrededores</span>').show();
+        $('#shipIgArea').show();
+        $('#shipPayBtn').hide();
       }
     }
 
-    $('#shipProvince, #shipCity, #shipZip, #shipSucursal').on('change', previewShipping);
+    $('#shipProvince, #shipCity').on('change', previewShipping);
     $('#shipCity').on('input', previewShipping);
   });
 

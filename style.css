@@ -1064,6 +1064,8 @@ nav {
 .ship-price { color: var(--pink); font-weight: 600; }
 .ship-calculating { color: var(--text-dim); font-style: italic; }
 .ship-error { color: #ff5252; font-size: 13px; }
+.ship-outside { color: #ffd700; font-size: 13px; }
+.ship-ig-area { text-align: center; margin: 8px 0; }
 
 /* Toast */
 .toast {
