@@ -149,101 +149,152 @@ $(function() {
     localStorage.setItem('e3d_mp_url', url);
   }
 
-  function pagarMP() {
-    if (!cart.length || !MP_BACKEND) return;
-    var items = [];
-    $.each(cart, function(i, item) {
-      items.push({ name: item.name, qty: item.qty, price: item.price });
-    });
+  /* ========== SHIPPING FORM + CHECKOUT ========== */
+  var PROVINCIAS = [
+    'Buenos Aires','CABA','Catamarca','Chaco','Chubut','Córdoba','Corrientes',
+    'Entre Ríos','Formosa','Jujuy','La Pampa','La Rioja','Mendoza','Misiones',
+    'Neuquén','Río Negro','Salta','San Juan','San Luis','Santa Cruz','Santa Fe',
+    'Santiago del Estero','Tierra del Fuego','Tucumán'
+  ];
 
-    $.ajax({
-      url: MP_BACKEND + '/crear-pago',
-      method: 'POST',
-      contentType: 'application/json',
-      data: JSON.stringify({ items: items }),
-      success: function(res) {
-        if (res.ok) {
-          window.location.href = res.url;
-        } else {
-          showToast('Error: ' + (res.error || 'No se pudo crear el pago'));
-        }
-      },
-      error: function(jqXHR) {
-        var msg = 'Error de conexion con el servidor de pago';
-        try {
-          var r = JSON.parse(jqXHR.responseText);
-          if (r.error) msg = r.error;
-        } catch(e) {}
-        showToast(msg);
-      }
-    });
+  var FREE_ZONE = [
+    'rosario','funes','roldán','granadero baigorria','baigorria','capitán bermúdez',
+    'san lorenzo','puerto general san martín','timbúes','villa gobernador gálvez',
+    'perez','pérez','soldini','zavalla','pueblo esther','alvear','fighiera',
+    'gálvez','villa constitución','coronel bogado','ricardone','oliveros',
+    'acebal','uranga','ibarlucea','carrizales','lucio v. lópez','serodino',
+    'andino','arbilla','bigand','chabás','firmat','melincué','murphy',
+    'teodolina','villa cañás','wheellwright','bombal','salto grande'
+  ];
+
+  function isFreeZone(province, city) {
+    if (province !== 'Santa Fe') return false;
+    return FREE_ZONE.indexOf(city.trim().toLowerCase()) !== -1;
   }
 
-  /* ========== CHECKOUT ========== */
+  function getShippingFormHtml() {
+    var opts = '';
+    $.each(PROVINCIAS, function(i, p) {
+      opts += '<option value="' + p + '">' + p + '</option>';
+    });
+    return '' +
+      '<div class="checkout-modal-icon">📦</div>' +
+      '<h3>Datos de envío</h3>' +
+      '<div class="ship-form">' +
+        '<input type="text" class="ship-input" id="shipName" placeholder="Nombre completo" required>' +
+        '<input type="tel" class="ship-input" id="shipPhone" placeholder="Teléfono (ej: 341 1234567)" required>' +
+        '<select class="ship-input" id="shipProvince">' + opts + '</select>' +
+        '<input type="text" class="ship-input" id="shipCity" placeholder="Ciudad" required>' +
+        '<input type="text" class="ship-input" id="shipZip" placeholder="Código postal" required>' +
+        '<input type="text" class="ship-input" id="shipAddress" placeholder="Dirección (calle y número)" required>' +
+        '<label class="ship-label"><input type="checkbox" id="shipSucursal"> Retirar en sucursal de Correo Argentino</label>' +
+      '</div>' +
+      '<div class="ship-cost" id="shipCost"></div>' +
+      '<div class="checkout-modal-actions">' +
+        '<button class="btn-primary checkout-mp" id="shipPayBtn" style="background:#00BFFF;border-color:#00BFFF;color:#fff;"> Pagar con Mercado Pago</button>' +
+        '<button class="btn-secondary checkout-close-modal">Cancelar</button>' +
+      '</div>';
+  }
+
   $('#checkoutBtn').on('click', function() {
     if (!cart.length) return;
-    var lines = ['¡Hola E3D! Quiero hacer este pedido:\n'];
-    var total = 0;
-    $.each(cart, function(i, item) {
-      var sub = item.price * item.qty;
-      total += sub;
-      lines.push('• ' + item.name + ' x' + item.qty + ' = ' + formatPrice(sub));
-    });
-    lines.push('\nTotal: ' + formatPrice(total));
-    lines.push('\n📍 Envío a coordinar');
-    lines.push('\n✅ Pedido generado desde e3d.com.ar');
-    var msg = lines.join('\n');
-
-    /* Copy to clipboard */
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(msg).catch(function() { fallbackCopy(msg); });
-    } else {
-      fallbackCopy(msg);
-    }
-
     closeCart();
 
-    var $modal = $(
-      '<div class="checkout-modal-overlay">' +
-        '<div class="checkout-modal">' +
-          '<div class="checkout-modal-icon">&#9989;</div>' +
-          '<h3>Pedido listo</h3>' +
-          '<p>El mensaje ya está copiado. Elegí cómo enviarlo:</p>' +
-          '<div class="checkout-modal-actions">' +
-            '<button class="btn-primary checkout-mp" style="background:#00BFFF;border-color:#00BFFF;color:#fff;" title="Pagar con Mercado Pago">' +
-              ' Pagar con Mercado Pago' +
-            '</button>' +
-            '<button class="btn-secondary checkout-close-modal">Cancelar</button>' +
-          '</div>' +
-          '<p class="checkout-modal-note">Pedido copiado al portapapeles</p>' +
-        '</div>' +
-      '</div>'
-    ).appendTo('body').css('display', 'flex').hide().fadeIn(200);
+    var $modal = $('<div class="checkout-modal-overlay"><div class="checkout-modal">' +
+      getShippingFormHtml() +
+      '</div></div>').appendTo('body').css('display', 'flex').hide().fadeIn(200);
 
-    $modal.find('.checkout-mp').on('click', function() {
-      removeModal();
-      pagarMP();
+    $modal.find('.checkout-close-modal').on('click', function() { removeModal(); });
+    $modal.on('click', function(e) { if (e.target === this) removeModal(); });
+
+    function removeModal() { $modal.fadeOut(200, function() { $modal.remove(); }); }
+
+    /* Calculate shipping and proceed */
+    $modal.find('#shipPayBtn').on('click', function() {
+      var name = $('#shipName').val().trim();
+      var phone = $('#shipPhone').val().trim();
+      var province = $('#shipProvince').val();
+      var city = $('#shipCity').val().trim();
+      var zip = $('#shipZip').val().trim();
+      var address = $('#shipAddress').val().trim();
+
+      if (!name || !phone || !city || !zip || !address) {
+        showToast('Completá todos los campos del formulario');
+        return;
+      }
+
+      var shipping = {
+        name: name, phone: phone, province: province, city: city,
+        zip: zip, address: address,
+        deliveryType: $('#shipSucursal').is(':checked') ? 'S' : 'D'
+      };
+
+      var items = [];
+      $.each(cart, function(i, it) {
+        items.push({ name: it.name, qty: it.qty, price: it.price });
+      });
+
+      var btn = $(this).prop('disabled', true).text('Procesando...');
+
+      $.ajax({
+        url: MP_BACKEND + '/crear-pago',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({ items: items, shipping: shipping }),
+        success: function(res) {
+          if (res.ok) {
+            window.location.href = res.url;
+          } else {
+            btn.prop('disabled', false).text(' Pagar con Mercado Pago');
+            showToast('Error: ' + (res.error || 'No se pudo crear el pago'));
+          }
+        },
+        error: function(jqXHR) {
+          btn.prop('disabled', false).text(' Pagar con Mercado Pago');
+          var msg = 'Error de conexion con el servidor de pago';
+          try { var r = JSON.parse(jqXHR.responseText); if (r.error) msg = r.error; } catch(e) {}
+          showToast(msg);
+        }
+      });
     });
 
-    $modal.find('.checkout-close-modal').on('click', function() {
-      removeModal();
-    });
+    /* Show shipping cost preview when fields change */
+    function previewShipping() {
+      var province = $('#shipProvince').val();
+      var city = $('#shipCity').val().trim();
+      var zip = $('#shipZip').val().trim();
 
-    $modal.on('click', function(e) {
-      if (e.target === this) removeModal();
-    });
+      if (!city || !zip) { $('#shipCost').hide(); return; }
 
-    function removeModal() {
-      $modal.fadeOut(200, function() { $modal.remove(); });
+      if (isFreeZone(province, city)) {
+        $('#shipCost').html('<span class="ship-free">🚚 Envío gratis a ' + city + ' (zona de cobertura)</span>').show();
+      } else {
+        $('#shipCost').html('<span class="ship-calculating">Calculando envío...</span>').show();
+        $.ajax({
+          url: MP_BACKEND + '/cotizar-envio',
+          method: 'POST',
+          contentType: 'application/json',
+          data: JSON.stringify({
+            province: province, city: city, zip: zip,
+            deliveryType: $('#shipSucursal').is(':checked') ? 'S' : 'D'
+          }),
+          success: function(res) {
+            if (res.ok && res.costo !== undefined) {
+              $('#shipCost').html('<span class="ship-price">🚚 Envío: $' + Number(res.costo).toLocaleString('es-AR') + '</span>').show();
+            } else if (res.error) {
+              $('#shipCost').html('<span class="ship-error">' + res.error + '</span>').show();
+            }
+          },
+          error: function() {
+            $('#shipCost').html('<span class="ship-error">Error al calcular envío</span>').show();
+          }
+        });
+      }
     }
-  });
 
-  function fallbackCopy(text) {
-    var $ta = $('<textarea>').val(text).css({ position: 'fixed', left: '-9999px', top: '-9999px' }).appendTo('body');
-    $ta.select();
-    try { document.execCommand('copy'); } catch (e) { }
-    $ta.remove();
-  }
+    $('#shipProvince, #shipCity, #shipZip, #shipSucursal').on('change', previewShipping);
+    $('#shipCity').on('input', previewShipping);
+  });
 
   /* ========== QTY SELECTOR (tiered products) ========== */
   function getTieredPrice(qty) {

@@ -1051,6 +1051,20 @@ nav {
   margin-top: 16px; margin-bottom: 0;
 }
 
+/* Shipping form inside checkout modal */
+.ship-form { display: flex; flex-direction: column; gap: 10px; margin: 16px 0; width: 100%; max-width: 360px; }
+.ship-input { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: 6px; background: #1a1a1a; color: var(--text); font-size: 14px; box-sizing: border-box; }
+.ship-input:focus { outline: none; border-color: var(--pink); }
+.ship-input select { cursor: pointer; }
+.ship-input option { background: #1a1a1a; color: var(--text); }
+.ship-label { font-size: 12px; color: var(--text-dim); display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.ship-label input[type="checkbox"] { accent-color: var(--pink); }
+.ship-cost { font-size: 14px; margin: 4px 0; text-align: center; display: none; }
+.ship-free { color: #00e676; font-weight: 600; }
+.ship-price { color: var(--pink); font-weight: 600; }
+.ship-calculating { color: var(--text-dim); font-style: italic; }
+.ship-error { color: #ff5252; font-size: 13px; }
+
 /* Toast */
 .toast {
   position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
